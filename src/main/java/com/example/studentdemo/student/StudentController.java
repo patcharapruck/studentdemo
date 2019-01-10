@@ -51,8 +51,18 @@ public class StudentController {
     }
 
     @PutMapping("/update")
-    public void StudentUpdate(@RequestBody Student student){
-        
+    public void StudentUpdate(@RequestBody Student student) throws Exception{
+
+        DBConnect db = new DBConnect();
+        Connection conn = db.connect();
+        StudentDao studentDao = new StudentDao(conn);
+
+        Student student1;
+        student1 = new Student(student.getStd_id(),student.getStd_fname(),student.getStd_lname()
+                ,student.getStd_major(),student.getStd_gpa(),false);
+        studentDao.edit(student1);
+
+        conn.close();
 
     }
 

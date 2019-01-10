@@ -39,4 +39,16 @@ public class StudentDaoTest {
 
         connection.close();
     }
+
+    @Test
+    public void edit() throws Exception{
+        DBConnect dbConnect = new DBConnect();
+        Connection connection = dbConnect.connect();
+
+        StudentDao studentDao = new StudentDao(connection);
+        Student student = new Student("ABC-000003","patchara","stane","CSS",3.00f,false);
+        studentDao.edit(student);
+
+        connection.close();
+    }
 }
