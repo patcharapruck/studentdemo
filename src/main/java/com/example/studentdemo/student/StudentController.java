@@ -67,8 +67,13 @@ public class StudentController {
     }
 
     @DeleteMapping("/delete")
-    public void StudentDelete(@RequestBody Student student){
+    public void StudentDelete(@RequestBody String std_id) throws Exception{
+        DBConnect dbConnect = new DBConnect();
+        Connection connection = dbConnect.connect();
+        StudentDao studentDao = new StudentDao(connection);
+        studentDao.delete(std_id);
 
+        connection.close();
     }
 
 

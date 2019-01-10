@@ -51,4 +51,16 @@ public class StudentDaoTest {
 
         connection.close();
     }
+
+    @Test
+    public void delete() throws Exception{
+        DBConnect dbConnect = new DBConnect();
+        Connection connection = dbConnect.connect();
+
+        StudentDao studentDao = new StudentDao(connection);
+        String student = new String("ABC-000002");
+        studentDao.delete(student);
+
+        connection.close();
+    }
 }
