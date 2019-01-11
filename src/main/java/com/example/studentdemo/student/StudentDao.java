@@ -42,8 +42,10 @@ public class StudentDao {
         boolean addResult = false;
         Student newStd = student;
 
-        String sqlText = "INSERT INTO student(std_id, std_fname, std_lname, std_major, std_gpa, std_del) VALUES (?,?,?,?,?,?)";
-        PreparedStatement preparedStatement = this.conn.prepareStatement(sqlText);
+        String generatedColumns[] = { "id" };
+
+        String sqlText = "INSERT INTO student(std_id,std_fname, std_lname, std_major, std_gpa, std_del) VALUES (?,?,?,?,?,?)";
+        PreparedStatement preparedStatement = this.conn.prepareStatement(sqlText,Statement.RETURN_GENERATED_KEYS);
         preparedStatement.setString(1,newStd.getStd_id());
         preparedStatement.setString(2,newStd.getStd_fname());
         preparedStatement.setString(3,newStd.getStd_lname());
@@ -51,8 +53,40 @@ public class StudentDao {
         preparedStatement.setFloat(5,newStd.getStd_gpa());
         preparedStatement.setBoolean(6,newStd.getStd_del());
 
+
         if (preparedStatement.executeUpdate() == 1){
             addResult = true;
+        }
+
+        try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+            if (generatedKeys.next()) {
+                student.setId(generatedKeys.getLong(1));
+                Long id = student.getId();
+
+                String val = "ABC-";
+                String id_str = id.toString();
+                int n = id_str.length();
+                String num_val ="";
+                for(int i=1;i<=6-n;i++){
+                    num_val = num_val+"0";
+                }
+                val = val+num_val+id_str;
+
+                System.out.println(val);
+
+                String sqlup = "UPDATE student SET std_id = ? WHERE id = ?";
+                PreparedStatement p = this.conn.prepareStatement(sqlup);
+                p.setString(1,val);
+                p.setLong(2,id);
+
+                if (p.executeUpdate() == 1){
+                    addResult = true;
+                }
+                p.close();
+            }
+            else {
+                throw new SQLException("Creating user failed, no ID obtained.");
+            }
         }
 
         preparedStatement.close();
