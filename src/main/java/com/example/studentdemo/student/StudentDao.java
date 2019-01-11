@@ -113,12 +113,14 @@ public class StudentDao {
         return addResult;
     }
 
-    public boolean delete(String std_id) throws SQLException{
+    public boolean delete(Student student) throws SQLException{
         boolean addResult = false;
+        Student srd = student;
+
 
         String sqlText = "UPDATE student SET std_del = true WHERE std_id = ?";
         PreparedStatement preparedStatement = this.conn.prepareStatement(sqlText);
-        preparedStatement.setString(1,std_id);
+        preparedStatement.setString(1,srd.getStd_id());
 
         if (preparedStatement.executeUpdate() == 1){
             addResult = true;

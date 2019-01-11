@@ -49,8 +49,8 @@ public class StudentController {
 
         StudentDao studentDao = new StudentDao(connection);
 
-        Student student1 = new Student(student.getStd_id(),student.getStd_fname(),student.getStd_lname()
-                ,student.getStd_major(),student.getStd_gpa(),false);
+        Student student1 = new Student(student.getStd_id()
+        );
         checkked = studentDao.add(student1);
 
         if (checkked){
@@ -69,8 +69,8 @@ public class StudentController {
         StudentDao studentDao = new StudentDao(conn);
 
         Student student1;
-        student1 = new Student(student.getStd_id(),student.getStd_fname(),student.getStd_lname()
-                ,student.getStd_major(),student.getStd_gpa(),false);
+        student1 = new Student(student.getStd_id()
+        );
         studentDao.edit(student1);
 
         conn.close();
@@ -78,11 +78,13 @@ public class StudentController {
     }
 
     @DeleteMapping("/delete")
-    public void StudentDelete(@RequestBody String std_id) throws Exception{
+    public void StudentDelete(@RequestBody Student student) throws Exception{
         DBConnect dbConnect = new DBConnect();
         Connection connection = dbConnect.connect();
         StudentDao studentDao = new StudentDao(connection);
-        studentDao.delete(std_id);
+
+        Student studentl = new Student(student.getStd_id());
+        studentDao.delete(studentl);
 
         connection.close();
     }

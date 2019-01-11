@@ -18,8 +18,7 @@ public class Student {
     private float std_gpa;
     public Boolean std_del = false;
 
-    public Student(String std_id, String std_fname, String std_lname
-            , String std_major, float std_gpa, Boolean std_del){
+    public Student(String std_id){
 
         this.id = id;
         this.std_id = std_id;

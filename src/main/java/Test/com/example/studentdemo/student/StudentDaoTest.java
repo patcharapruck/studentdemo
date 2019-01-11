@@ -6,8 +6,6 @@ import org.junit.Test;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
-
 public class StudentDaoTest {
 
     @Test
@@ -34,7 +32,7 @@ public class StudentDaoTest {
         Connection connection = dbConnect.connect();
 
         StudentDao studentDao = new StudentDao(connection);
-        Student student = new Student("ABC-000003","patcharapruck","Sukjindastane","CS",2.65f,false);
+        Student student = new Student("ABC-000003");
         studentDao.add(student);
 
         connection.close();
@@ -46,7 +44,7 @@ public class StudentDaoTest {
         Connection connection = dbConnect.connect();
 
         StudentDao studentDao = new StudentDao(connection);
-        Student student = new Student("ABC-000003","patchara","stane","CSS",3.00f,false);
+        Student student = new Student("ABC-000003");
         studentDao.edit(student);
 
         connection.close();
@@ -58,7 +56,7 @@ public class StudentDaoTest {
         Connection connection = dbConnect.connect();
 
         StudentDao studentDao = new StudentDao(connection);
-        String student = new String("ABC-000002");
+        Student student = new Student("ABC-000002");
         studentDao.delete(student);
 
         connection.close();
