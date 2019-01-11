@@ -19,21 +19,25 @@ public class StudentController {
 
 
     @GetMapping("/select")
-    public void StudentSelect() throws SQLException {
+    public ArrayList<String> StudentSelect() throws SQLException {
 
         DBConnect dbConnect = new DBConnect();
         Connection connection = dbConnect.connect();
         StudentDao studentDao = new StudentDao(connection);
         ArrayList<Student> students = studentDao.findAll();
+        ArrayList<String> strings = new ArrayList<>();
 
+        String row;
         for(Student student:students){
-            System.out.println(student.getId()+"|"+student.getStd_id()+"|"
+            row = student.getId()+"|"+student.getStd_id()+"|"
                     +student.getStd_fname()+"|"+student.getStd_lname()+"|"
-                    +student.getStd_major()+"|"+student.getStd_gpa());
+                    +student.getStd_major()+"|"+student.getStd_gpa();
+            strings.add(row);
         }
 
         connection.close();
 
+        return strings;
     }
 
     @PostMapping("/insert")

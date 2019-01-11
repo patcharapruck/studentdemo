@@ -1,5 +1,7 @@
 package com.example.studentdemo.student;
 
+import java.util.ArrayList;
+
 public class Student {
 
 
@@ -7,7 +9,7 @@ public class Student {
 
     }
 
-
+    private ArrayList<String> Data;
     private Long id;
     private String std_id;
     private String std_fname;
@@ -47,12 +49,11 @@ public class Student {
     public Boolean getStd_del(){
         return std_del;
     }
+    public ArrayList<String> getData(){ return Data; }
 
 
 
-    public void setId(Long id){
-        this.id = id;
-    }
+    public void setId(Long id){ this.id = id; }
     public void setStd_id(String std_id){
         this.std_id = std_id;
     }
@@ -68,7 +69,6 @@ public class Student {
     public void setStd_gpa(float std_gpa){
         this.std_gpa = std_gpa;
     }
-    public void setStd_del(Boolean std_del){
-        this.std_del = std_del;
-    }
+    public void setStd_del(Boolean std_del){ this.std_del = std_del; }
+    public void setData(ArrayList<String> data){ this.Data = data; }
 }
