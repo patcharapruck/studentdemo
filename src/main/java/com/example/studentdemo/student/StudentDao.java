@@ -62,17 +62,8 @@ public class StudentDao {
             if (generatedKeys.next()) {
                 student.setId(generatedKeys.getLong(1));
                 Long id = student.getId();
-
-                String val = "ABC-";
-                String id_str = id.toString();
-                int n = id_str.length();
-                String num_val ="";
-                for(int i=1;i<=6-n;i++){
-                    num_val = num_val+"0";
-                }
-                val = val+num_val+id_str;
-
-                System.out.println(val);
+                
+                String val = laststdID();
 
                 String sqlup = "UPDATE student SET std_id = ? WHERE id = ?";
                 PreparedStatement p = this.conn.prepareStatement(sqlup);
@@ -87,6 +78,8 @@ public class StudentDao {
             else {
                 throw new SQLException("Creating user failed, no ID obtained.");
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         preparedStatement.close();
@@ -128,6 +121,38 @@ public class StudentDao {
 
         preparedStatement.close();
         return addResult;
+    }
+
+    public String laststdID() throws Exception{
+        Statement statement = conn.createStatement();
+        String s = "SELECT std_id FROM student WHERE  std_id IS NOT NULL ORDER BY std_id DESC limit 1";
+        ResultSet resultSet = statement.executeQuery(s);
+        String students ="";
+        while (resultSet.next()){
+            students = resultSet.getString("std_id");
+        }
+
+        String stdID = students;
+        String[] parts = stdID.split("-");
+        String part1 = parts[1];
+
+        Long id = Long.parseLong(part1)+1;
+
+        String val = "ABC-";
+        String id_str = id.toString();
+        int n = id_str.length();
+        String num_val ="";
+        for(int i=1;i<=6-n;i++){
+            num_val = num_val+"0";
+        }
+        val = val+num_val+id_str;
+
+        System.out.println(val);
+
+        resultSet.close();
+        statement.close();
+
+        return val;
     }
 
 
