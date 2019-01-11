@@ -41,17 +41,24 @@ public class StudentController {
     }
 
     @PostMapping("/insert")
-    public void StudentInsert(@RequestBody Student student) throws Exception{
+    public String StudentInsert(@RequestBody Student student) throws Exception{
         DBConnect dbConnect = new DBConnect();
         Connection connection = dbConnect.connect();
+        Boolean checkked;
+        String send="Insert Fail";
 
         StudentDao studentDao = new StudentDao(connection);
 
         Student student1 = new Student(student.getStd_id(),student.getStd_fname(),student.getStd_lname()
                 ,student.getStd_major(),student.getStd_gpa(),false);
-        studentDao.add(student1);
+        checkked = studentDao.add(student1);
 
+        if (checkked){
+            send = "Inset Complete!!";
+        }
         connection.close();
+
+        return send;
     }
 
     @PutMapping("/update")
