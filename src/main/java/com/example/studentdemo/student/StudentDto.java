@@ -3,11 +3,11 @@ package com.example.studentdemo.student;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class StudentDao {
+public class StudentDto {
 
     Connection conn;
 
-    public StudentDao(Connection connection){
+    public StudentDto(Connection connection){
         this.conn = connection;
     }
 

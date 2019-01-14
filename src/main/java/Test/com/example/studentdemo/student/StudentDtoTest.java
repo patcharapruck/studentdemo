@@ -6,16 +6,16 @@ import org.junit.Test;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-public class StudentDaoTest {
+public class StudentDtoTest {
 
     @Test
     public void findAll() throws Exception {
         DBConnect dbConnect = new DBConnect();
         Connection connection = dbConnect.connect();
 
-        StudentDao studentDao = new StudentDao(connection);
+        StudentDto studentDto = new StudentDto(connection);
 
-        ArrayList<Student> students = studentDao.findAll();
+        ArrayList<Student> students = studentDto.findAll();
 
         for(Student student:students){
             System.out.println(student.getId()+"|"+student.getStd_id()+"|"
@@ -31,9 +31,9 @@ public class StudentDaoTest {
         DBConnect dbConnect = new DBConnect();
         Connection connection = dbConnect.connect();
 
-        StudentDao studentDao = new StudentDao(connection);
+        StudentDto studentDto = new StudentDto(connection);
         Student student = new Student("ABC-000003");
-        studentDao.add(student);
+        studentDto.add(student);
 
         connection.close();
     }
@@ -43,9 +43,9 @@ public class StudentDaoTest {
         DBConnect dbConnect = new DBConnect();
         Connection connection = dbConnect.connect();
 
-        StudentDao studentDao = new StudentDao(connection);
+        StudentDto studentDto = new StudentDto(connection);
         Student student = new Student("ABC-000003");
-        studentDao.edit(student);
+        studentDto.edit(student);
 
         connection.close();
     }
@@ -55,9 +55,9 @@ public class StudentDaoTest {
         DBConnect dbConnect = new DBConnect();
         Connection connection = dbConnect.connect();
 
-        StudentDao studentDao = new StudentDao(connection);
+        StudentDto studentDto = new StudentDto(connection);
         Student student = new Student("ABC-000002");
-        studentDao.delete(student);
+        studentDto.delete(student);
 
         connection.close();
     }

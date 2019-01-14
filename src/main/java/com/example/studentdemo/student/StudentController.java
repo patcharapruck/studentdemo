@@ -23,8 +23,8 @@ public class StudentController {
 
         DBConnect dbConnect = new DBConnect();
         Connection connection = dbConnect.connect();
-        StudentDao studentDao = new StudentDao(connection);
-        ArrayList<Student> students = studentDao.findAll();
+        StudentDto studentDto = new StudentDto(connection);
+        ArrayList<Student> students = studentDto.findAll();
         ArrayList<String> strings = new ArrayList<>();
 
         String row;
@@ -47,11 +47,11 @@ public class StudentController {
         Boolean checkked;
         String send="Insert Fail";
 
-        StudentDao studentDao = new StudentDao(connection);
+        StudentDto studentDto = new StudentDto(connection);
 
         Student student1 = new Student(student.getStd_id()
         );
-        checkked = studentDao.add(student1);
+        checkked = studentDto.add(student1);
 
         if (checkked){
             send = "Inset Complete!!";
@@ -66,12 +66,12 @@ public class StudentController {
 
         DBConnect db = new DBConnect();
         Connection conn = db.connect();
-        StudentDao studentDao = new StudentDao(conn);
+        StudentDto studentDto = new StudentDto(conn);
 
         Student student1;
         student1 = new Student(student.getStd_id()
         );
-        studentDao.edit(student1);
+        studentDto.edit(student1);
 
         conn.close();
 
@@ -81,10 +81,10 @@ public class StudentController {
     public void StudentDelete(@RequestBody Student student) throws Exception{
         DBConnect dbConnect = new DBConnect();
         Connection connection = dbConnect.connect();
-        StudentDao studentDao = new StudentDao(connection);
+        StudentDto studentDto = new StudentDto(connection);
 
         Student studentl = new Student(student.getStd_id());
-        studentDao.delete(studentl);
+        studentDto.delete(studentl);
 
         connection.close();
     }
