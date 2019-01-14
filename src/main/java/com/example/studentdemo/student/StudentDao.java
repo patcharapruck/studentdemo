@@ -62,7 +62,7 @@ public class StudentDao {
             if (generatedKeys.next()) {
                 student.setId(generatedKeys.getLong(1));
                 Long id = student.getId();
-                
+
                 String val = laststdID();
 
                 String sqlup = "UPDATE student SET std_id = ? WHERE id = ?";
@@ -134,18 +134,20 @@ public class StudentDao {
 
         String stdID = students;
         String[] parts = stdID.split("-");
+        String part2 = parts[0];
         String part1 = parts[1];
 
         Long id = Long.parseLong(part1)+1;
-
-        String val = "ABC-";
+        String val = part2+"-";
         String id_str = id.toString();
         int n = id_str.length();
-        String num_val ="";
+        String num_val = "";
+
         for(int i=1;i<=6-n;i++){
-            num_val = num_val+"0";
+            num_val = num_val +"0";
         }
-        val = val+num_val+id_str;
+
+        val = val+ num_val +id_str;
 
         System.out.println(val);
 
@@ -154,6 +156,34 @@ public class StudentDao {
 
         return val;
     }
+
+//    public ArrayList<Student> findSearh() throws SQLException{
+//
+//        ArrayList<Student> students = new ArrayList<>();
+//        Student student = null;
+//
+//        Statement statement = conn.createStatement();
+//        String sqlText = "SELECT * FROM student";
+//        ResultSet resultSet = statement.executeQuery(sqlText);
+//
+//        while (resultSet.next()){
+//            student = new Student();
+//            student.setId(resultSet.getLong("id"));
+//            student.setStd_id(resultSet.getString("std_id"));
+//            student.setStd_fname(resultSet.getString("std_fname"));
+//            student.setStd_lname(resultSet.getString("std_lname"));
+//            student.setStd_major(resultSet.getString("std_major"));
+//            student.setStd_gpa(resultSet.getFloat("std_gpa"));
+//
+//            students.add(student);
+//        }
+//
+//        resultSet.close();
+//        statement.close();
+//
+//        return students;
+//    }
+
 
 
 }

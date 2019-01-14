@@ -89,5 +89,11 @@ public class StudentController {
         connection.close();
     }
 
-
+//    @PostMapping("/search")
+//    public ArrayList<String> StudentSearch(@RequestBody Student student) throws Exception{
+//        DBConnect dbConnect = new DBConnect();
+//        Connection connection = dbConnect.connect();
+//
+//
+//    }
 }
